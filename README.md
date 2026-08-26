@@ -10,7 +10,7 @@ Repository: [Erwinya/user-console](https://github.com/Erwinya/user-console)
 - Create and edit users (name + email)
 - Delete with confirmation
 - Status / error feedback
-- Vite dev proxy to `http://localhost:8080` (no CORS setup needed locally)
+- Vite `/api` dev proxy to `http://localhost:8080`
 
 ## Requirements
 
@@ -48,7 +48,9 @@ npm run build
 npm run preview
 ```
 
-Optional: set `VITE_API_BASE_URL` in `.env` when the API is not reachable via the Vite proxy (for example a remote host). Leave it empty for local proxy mode.
+The console reads `VITE_API_BASE_URL` when it is set and otherwise connects to `http://localhost:8080`. The user-api allows requests from the default Vite origin, `http://localhost:5173`.
+
+Set `VITE_API_BASE_URL` in `.env` to use an API at a different origin. Vite also proxies `/api` requests to the default API during local development.
 
 ## Tests
 

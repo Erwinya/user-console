@@ -20,5 +20,6 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: /manage users against user-api/i })).toBeInTheDocument();
     expect(await screen.findByRole("heading", { name: /create user/i })).toBeInTheDocument();
     expect(screen.getByPlaceholderText("haluk@example.com")).toBeInTheDocument();
+    expect(await screen.findByText("No users yet. Create one with the form.")).toBeInTheDocument();
   });
 });
