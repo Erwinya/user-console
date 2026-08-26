@@ -12,7 +12,7 @@ export default function UserTable({ users, onEdit, onDelete, busy }) {
     return (
       <div className="panel empty">
         <h2>Users</h2>
-        <p className="muted">No users yet. Create the first one on the left.</p>
+        <p className="muted">No users yet. Create one with the form.</p>
       </div>
     );
   }
