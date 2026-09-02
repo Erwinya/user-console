@@ -7,12 +7,15 @@ function formatTime(value) {
   }
 }
 
-export default function UserTable({ users, onEdit, onDelete, busy }) {
+export default function UserTable({ users, onEdit, onDelete, busy, apiError }) {
   if (!users.length) {
+    const message = apiError
+      ? "Could not load users. Start user-api on :8080 and click Refresh."
+      : "No users yet. Create one with the form.";
     return (
       <div className="panel empty">
         <h2>Users</h2>
-        <p className="muted">No users yet. Create one with the form.</p>
+        <p className="muted">{message}</p>
       </div>
     );
   }

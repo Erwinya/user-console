@@ -45,12 +45,16 @@ export default function App() {
 
   async function onSubmit(event) {
     event.preventDefault();
-    setBusy(true);
-    setError("");
     const payload = {
       name: form.name.trim(),
       email: form.email.trim(),
     };
+    if (!payload.name || !payload.email) {
+      setError("Name and email are required.");
+      return;
+    }
+    setBusy(true);
+    setError("");
     try {
       if (editingId) {
         await updateUser(editingId, payload);
@@ -120,7 +124,7 @@ export default function App() {
           editingId={editingId}
           busy={busy}
         />
-        <UserTable users={users} onEdit={onEdit} onDelete={onDelete} busy={busy} />
+        <UserTable users={users} onEdit={onEdit} onDelete={onDelete} busy={busy} apiError={Boolean(error)} />
       </main>
     </div>
   );
