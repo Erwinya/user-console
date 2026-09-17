@@ -36,6 +36,18 @@ Terminal 1 — API:
 Terminal 2 — console:
 
 ```bash
+npm install
+npm run dev
+```
+
+Windows PowerShell:
+
+```powershell
+# terminal 1 (user-api)
+.\mvnw.cmd spring-boot:run
+
+# terminal 2 (user-console)
+npm install
 npm run dev
 ```
 
