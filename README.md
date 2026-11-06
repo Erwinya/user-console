@@ -66,6 +66,8 @@ Set `VITE_API_BASE_URL` in `.env` to use an API at a different origin. Vite also
 
 ## Tests
 
+GitHub Actions runs `npm test` and `npm run build` on push.
+
 ```bash
 npm test
 ```
