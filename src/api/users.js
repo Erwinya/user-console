@@ -1,12 +1,16 @@
-const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
 
 async function request(path, options = {}) {
+  const { headers: extraHeaders, body, ...rest } = options;
+  const headers = { ...(extraHeaders || {}) };
+  if (body !== undefined && body !== null) {
+    headers["Content-Type"] = "application/json";
+  }
+
   const response = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
-    ...options,
+    ...rest,
+    headers,
+    body,
   });
 
   if (response.status === 204) {
@@ -14,24 +18,24 @@ async function request(path, options = {}) {
   }
 
   const text = await response.text();
-  let body = null;
+  let bodyJson = null;
   if (text) {
     try {
-      body = JSON.parse(text);
+      bodyJson = JSON.parse(text);
     } catch {
-      body = text;
+      bodyJson = text;
     }
   }
 
   if (!response.ok) {
     const message =
-      (body && typeof body === "object" && body.message) ||
-      (typeof body === "string" && body) ||
+      (bodyJson && typeof bodyJson === "object" && bodyJson.message) ||
+      (typeof bodyJson === "string" && bodyJson) ||
       `Request failed (${response.status})`;
     throw new Error(message);
   }
 
-  return body;
+  return bodyJson;
 }
 
 export function listUsers() {
@@ -57,3 +61,5 @@ export function deleteUser(id) {
     method: "DELETE",
   });
 }
+
+export { API_BASE };
